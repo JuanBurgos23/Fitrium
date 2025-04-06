@@ -70,4 +70,6 @@ class ClienteController extends Controller
 
         return response()->json($clientes);
     }
+
+    
 }

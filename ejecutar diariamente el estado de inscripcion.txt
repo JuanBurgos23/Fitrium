@@ -1,0 +1,43 @@
+¡Gracias por la aclaración! Como estás utilizando XAMPP en Windows, no puedes usar cron jobs directamente como lo harías en un servidor Linux. Sin embargo, puedes simular la ejecución automática de las tareas programadas de Laravel utilizando el programador de tareas de Windows.
+
+Pasos para ejecutar las tareas programadas automáticamente en Windows usando XAMPP:
+Abrir el Programador de Tareas de Windows:
+
+Presiona Windows + R para abrir la ventana "Ejecutar".
+Escribe taskschd.msc y presiona Enter para abrir el "Programador de tareas".
+Crear una Nueva Tarea:
+
+En el panel de la izquierda, selecciona "Biblioteca del programador de tareas".
+Haz clic en "Acción" en el menú superior y selecciona "Crear tarea".
+Configurar la Tarea:
+
+En la pestaña "General", ponle un nombre a la tarea, como Laravel Task Scheduler, y asegúrate de que la tarea se ejecute con privilegios de administrador (marca la opción "Ejecutar con privilegios más altos").
+En la pestaña "Desencadenadores", haz clic en "Nuevo" y selecciona "Diariamente", y luego configura que se repita cada 1 día. Si prefieres que se ejecute cada minuto, puedes elegir la opción de repetir cada 1 minuto.
+Configurar la Acción para Ejecutar Laravel:
+
+En la pestaña "Acciones", haz clic en "Nuevo" y en "Acción" selecciona "Iniciar un programa".
+En "Programa o script", navega hasta el ejecutable de PHP dentro de tu carpeta de XAMPP, por ejemplo:
+makefile
+Copiar
+Editar
+C:\xampp\php\php.exe
+En "Agregar argumentos" pon el siguiente comando:
+bash
+Copiar
+Editar
+artisan schedule:run
+En "Iniciar en", selecciona la carpeta de tu proyecto Laravel, por ejemplo:
+makefile
+Copiar
+Editar
+C:\xampp\htdocs\tu-proyecto
+Guardar la Tarea:
+
+Haz clic en "Aceptar" para guardar la tarea.
+Probar la Tarea:
+
+Puedes hacer clic derecho sobre la tarea que acabas de crear en el "Programador de tareas" y seleccionar "Ejecutar" para asegurarte de que todo esté funcionando correctamente.
+Resumen:
+De esta forma, configuramos una tarea programada de Windows para ejecutar el comando php artisan schedule:run en intervalos regulares (puede ser cada minuto, cada hora, etc.), lo que simula la funcionalidad de un cron job en un servidor Linux.
+
+¡Prueba esta configuración y avísame si tienes algún problema!

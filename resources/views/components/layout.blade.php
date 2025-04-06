@@ -50,12 +50,13 @@
                     <div class="profile-desc">
                         <div class="profile-pic">
                             <div class="count-indicator">
-                                <img class="img-xs rounded-circle " src="assets/images/faces/face15.jpg" alt="">
+                                <img class="img-xs rounded-circle " src="{{ auth::user()->imagen ? asset('storage/'.auth::user()->imagen) : asset('inicio/images/avatar.jpg') }}" alt="">
                                 <span class="count bg-success"></span>
                             </div>
                             <div class="profile-name">
                                 <h5 class="mb-0 font-weight-normal">{{ auth::user()->name }}</h5>
-                                <span>Gold Member</span>
+                                <span>@foreach(auth()->user()->roles as $role)
+                                    {{ $role->name }}@endforeach</span>
                             </div>
                         </div>
 
@@ -74,25 +75,49 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic"
+                        aria-expanded="{{ Route::is('mostrar_cliente') || Route::is('mostrar_inscripcion') || Route::is('historial_inscripciones') || Route::is('historial_cliente') || Route::is('historial_recibos_cliente') || Route::is('mostrar_paquete') ? 'true' : 'false' }}"
+                        aria-controls="ui-basic">
                         <span class="menu-icon">
                             <i class="mdi mdi-laptop"></i>
                         </span>
                         <span class="menu-title">Registros</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="ui-basic">
+                    <div class="collapse {{ Route::is('mostrar_cliente') || Route::is('mostrar_inscripcion') || Route::is('historial_inscripciones') || Route::is('historial_cliente') || Route::is('mostrar_paquete') ? 'show' : '' }}"
+                        id="ui-basic">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="{{ route('mostrar_cliente') }}">Cliente</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('mostrar_cliente') ? 'active' : '' }}" href="{{ route('mostrar_cliente') }}">
+                                    Cliente
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('mostrar_inscripcion') || Route::is('historial_inscripciones') || Route::is('historial_recibos_cliente') || Route::is('historial_cliente') ? 'active' : '' }}" href="{{ route('mostrar_inscripcion') }}">
+                                    Inscripción
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('mostrar_paquete') ? 'active' : '' }}" href="{{ route('mostrar_paquete') }}">
+                                    Paquete
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('mostrar_casillero') ? 'active' : '' }}" href="{{ route('mostrar_casillero') }}">
+                                    Casillero
+                                </a>
+                            </li>
+
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="pages/forms/basic_elements.html">
+                    <a class="nav-link" href="{{ route('mostrar_asistencia') }}">
                         <span class="menu-icon">
                             <i class="mdi mdi-playlist-play"></i>
                         </span>
-                        <span class="menu-title">Form Elements</span>
+                        <span class="menu-title">Asistencia</span>
                         <i class="menu-arrow"></i>
                     </a>
                 </li>
@@ -152,7 +177,7 @@
             <!-- partial:partials/_navbar.html -->
             <nav class="navbar p-0 fixed-top d-flex flex-row">
                 <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-                    <a class="navbar-brand brand-logo-mini" href="#"><img src="" alt="logo" /></a>
+                    <a class="navbar-brand brand-logo-mini" href="#"><img src="{{ asset('inicio/images/11 (2).jpg') }}" alt="logo" /></a>
                 </div>
                 <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -161,7 +186,7 @@
 
                     <ul class="navbar-nav navbar-nav-right">
                         <li class="nav-item dropdown border-left">
-                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                                 <i class="mdi mdi-bell"></i>
                                 <span class="count bg-danger"></span>
                             </a>
@@ -208,9 +233,9 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown">
+                            <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                                 <div class="navbar-profile">
-                                    <img class="img-xs rounded-circle" src="" alt="">
+                                    <img class="img-xs rounded-circle" src="{{ auth::user()->imagen ? asset('storage/'.auth::user()->imagen) : asset('inicio/images/avatar.jpg') }}" alt="">
                                     <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ auth::user()->name }}</p>
                                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                                 </div>
@@ -218,7 +243,7 @@
                             <div class="dropdown-menu dropdown-menu-end navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                                 <h6 class="p-3 mb-0">Perfil</h6>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item" href="#">
+                                <a class="dropdown-item preview-item" href="{{ route('mostrar_perfil') }}">
                                     <div class="preview-thumbnail">
                                         <div class="preview-icon bg-dark rounded-circle">
                                             <i class="mdi mdi-cog text-success"></i>
@@ -226,7 +251,7 @@
                                     </div>
                                     <div class="preview-item-content">
                                         <p class="preview-subject mb-1">Configuracion</p>
-                                        
+
                                     </div>
                                 </a>
                                 <div class="dropdown-divider"></div>
@@ -333,6 +358,49 @@
     <script src="{{asset('assets/js/proBanner.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script>
     <!-- End custom js for this page -->
+    <script src="{{asset('vendors/scripts/core.js')}}"></script>
+    <script src="{{asset('vendors/scripts/script.min.js')}}"></script>
+    <script src="{{asset('vendors/scripts/process.js')}}"></script>
+    <script src="{{asset('vendors/scripts/layout-settings.js')}}"></script>
+    <script src="{{asset('src/plugins/apexcharts/apexcharts.min.js')}}"></script>
+    <script src="{{asset('src/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('src/plugins/datatables/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('src/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('src/plugins/datatables/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('vendors/scripts/dashboard.js')}}"></script>
+    <script src="{{asset('src/plugins/jquery-steps/jquery.steps.js')}}"></script>
+    <script src="{{asset('vendors/scripts/steps-setting.js')}}"></script>
+
+    <!-- buttons for Export datatable -->
+    <script src="{{asset('src/plugins/datatables/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('src/plugins/datatables/js/buttons.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('src/plugins/datatables/js/buttons.print.min.js')}}"></script>
+    <script src="{{asset('src/plugins/datatables/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('src/plugins/datatables/js/buttons.flash.min.js')}}"></script>
+    <script src="{{asset('src/plugins/datatables/js/pdfmake.min.js')}}"></script>
+
+
+    <script src="{{asset('src\plugins\datatables')}}"></script>
+
+    <!-- buttons for Export datatable -->
+    <!-- plugins:js -->
+    <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{{ asset('assets/vendors/chart.js/chart.umd.js') }}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
+    <script src="{{ asset('assets/js/misc.js') }}"></script>
+    <script src="{{ asset('assets/js/settings.js') }}"></script>
+    <script src="{{ asset('assets/js/todolist.js') }}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{{ asset('assets/js/chart.js') }}"></script>
+    <!-- End custom js for this page -->
+
+    <!-- Datatable Setting js -->
+    <script src="{{ asset('vendors/scripts/datatable-setting.js') }}"></script>
     @stack('js')
 </body>
 

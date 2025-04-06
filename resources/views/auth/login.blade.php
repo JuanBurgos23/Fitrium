@@ -67,7 +67,7 @@
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="brand-logo">
                 <a href="#" class="d-flex align-items-center">
-                    <img src="vendors/images/11 (3).jpg" alt="Logo" style="width: 350px; height: 70px; margin-right: 10px;">
+                    <img src="inicio/images/11 (3).jpg" alt="Logo" style="width: 350px; height: 70px; margin-right: 10px;">
                     <span style="font-size: 20px; font-weight: bold; color: #fff;"></span>
                 </a>
             </div>
@@ -87,7 +87,7 @@
                                font-weight: bold; text-transform: uppercase; letter-spacing: 10px;
                                text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8), 0 0 25px #000, 0 0 5px #000;">
                         </h2>
-                        <img src="{{asset('vendors/images/11 (2).jpg')}}" alt="" style="width: 100%; border-radius: 10px;">
+                        <img src="{{asset('inicio/images/11 (2).jpg')}}" alt="" style="width: 100%; border-radius: 10px;">
                     </div>
 
                 </div>

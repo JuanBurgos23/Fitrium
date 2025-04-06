@@ -1,6 +1,6 @@
-(function($) {
+(function ($) {
   'use strict';
-  $(function() {
+  $(function () {
     var body = $('body');
     var contentWrapper = $('.content-wrapper');
     var scroller = $('.container-scroller');
@@ -36,19 +36,19 @@
     }
 
     var current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
-    $('.nav li a', sidebar).each(function() {
+    $('.nav li a', sidebar).each(function () {
       var $this = $(this);
       addActiveClass($this);
     })
 
-    $('.horizontal-menu .nav li a').each(function() {
+    $('.horizontal-menu .nav li a').each(function () {
       var $this = $(this);
       addActiveClass($this);
     })
 
     //Close other submenu in sidebar on opening any
 
-    sidebar.on('show.bs.collapse', '.collapse', function() {
+    sidebar.on('show.bs.collapse', '.collapse', function () {
       sidebar.find('.collapse.show').collapse('hide');
     });
 
@@ -71,12 +71,16 @@
       }
     }
 
-    $('[data-toggle="minimize"]').on("click", function() {
-      if ((body.hasClass('sidebar-toggle-display')) || (body.hasClass('sidebar-absolute'))) {
-        body.toggleClass('sidebar-hidden');
-      } else {
-        body.toggleClass('sidebar-icon-only');
-      }
+    $(function () {
+      var body = $('body'); // <--- DEFINIR body
+
+      $('[data-toggle="minimize"]').on("click", function () {
+        if ((body.hasClass('sidebar-toggle-display')) || (body.hasClass('sidebar-absolute'))) {
+          body.toggleClass('sidebar-hidden');
+        } else {
+          body.toggleClass('sidebar-icon-only');
+        }
+      });
     });
 
     //checkbox and radios
@@ -106,6 +110,6 @@
         }
       }
     })
-    
+
   });
 })(jQuery);

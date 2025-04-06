@@ -6,10 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Clientes</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -18,8 +17,6 @@
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl">
             <!-- Navbar content -->
         </nav>
-
-
 
         <div class="container-fluid py-4" style="margin-top: 40px;"> <!-- Se añade un margen superior aquí -->
             @if(session('success'))
@@ -62,10 +59,6 @@
                             </button>
                         </div>
                     </div>
-
-
-
-
 
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-0">
@@ -119,7 +112,7 @@
                             </table>
 
                             <!-- Paginación -->
-                            {{ $clientes->appends(request()->query())->links() }}
+                            {{ $clientes->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
                 </div>
