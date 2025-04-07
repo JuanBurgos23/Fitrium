@@ -14,8 +14,16 @@ return new class extends Migration
 
     public function up(): void
     {
+        // Crear la tabla 'roles'
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
+        // Crear los roles
         $role1 = Role::create(['name' => 'Administrador']);
-        $role2 = Role::create(['name' => 'Empleado']);
+        $role2 = Role::create(['name' => 'Recepcionista']);
     }
     /**
      * Reverse the migrations.

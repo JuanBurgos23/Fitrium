@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Clientes</title>
-    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -69,8 +69,9 @@
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">CI</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Correo</th>
-
+                                        @role('admin') <!-- Asegurarse de que solo los administradores puedan ver la columna de acciones -->
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                                        @endrole
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,12 +97,13 @@
                                                 <h6 class="mb-0 text-sm">{{ $cliente->correo }}</h6>
                                             </div>
                                         </td>
-
+                                        @role('admin') <!-- Asegurarse de que solo los administradores puedan editar -->
                                         <td class="align-middle text-center">
                                             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ $cliente->id }}">
                                                 <i class="fas fa-edit"></i> Editar
                                             </button>
                                         </td>
+                                        @endrole
                                     </tr>
                                     @empty
                                     <tr>

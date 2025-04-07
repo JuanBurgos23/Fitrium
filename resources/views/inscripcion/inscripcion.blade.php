@@ -6,10 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitrium</title>
-    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    
-    
+
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -513,6 +513,25 @@
                     .catch(error => {
                         console.error('Error al obtener los datos del recibo:', error);
                     });
+            });
+
+            // Mejora con soporte para acentos y ñ
+            function toTitleCase(str) {
+                return str
+                    .toLowerCase()
+                    .replace(/(^|\s)([a-záéíóúñü])/g, function(match, separator, char) {
+                        return separator + char.toUpperCase();
+                    });
+            }
+
+            // Aplicar a los campos deseados
+            ['nombre', 'paterno', 'materno'].forEach(function(id) {
+                const input = document.getElementById(id);
+                input.addEventListener('input', function() {
+                    const caret = input.selectionStart; // mantener posición del cursor
+                    this.value = toTitleCase(this.value);
+                    input.setSelectionRange(caret, caret); // restaurar posición del cursor
+                });
             });
         </script>
 

@@ -14,18 +14,40 @@ class PerfilController extends Controller
         return view('perfil.perfil', compact('user'));
     }
 
-    public function perfilUpdate(Request $request){
+    public function perfilUpdate(Request $request)
+    {
+      
         $user = auth()->user();
-        
-        $user -> name = $request->name;
-        $user-> paterno = $request->paterno;
-        $user -> materno = $request->materno;
-        $user -> ci = $request->ci;
-        $user -> telefono = $request->telefono;
-        $user -> email = $request->email;
-        $user -> save();
+
+        // Validar datos
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'paterno' => 'nullable|string|max:255',
+            'materno' => 'nullable|string|max:255',
+            'ci' => 'nullable|string|max:50',
+            'telefono' => 'nullable|string|max:50',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|',
+        ]);
+
+        // Asignar datos
+        $user->name = $request->name;
+        $user->paterno = $request->paterno;
+        $user->materno = $request->materno;
+        $user->ci = $request->ci;
+        $user->telefono = $request->telefono;
+        $user->email = $request->email;
+
+        // Actualizar contraseña solo si se proporcionó
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+
         return redirect()->back()->with('success', 'Perfil actualizado correctamente.');
     }
+
     public function updateAvatar(Request $request, $id)
     {
         // Validación de la imagen
@@ -75,4 +97,7 @@ class PerfilController extends Controller
         // Redirige de nuevo a la página del perfil del usuario
         return redirect()->back()->with('success', 'Foto de perfil eliminada correctamente.');
     }
+
+
+    
 }

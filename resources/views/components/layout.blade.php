@@ -87,16 +87,21 @@
                     <div class="collapse {{ Route::is('mostrar_cliente') || Route::is('mostrar_inscripcion') || Route::is('historial_inscripciones') || Route::is('historial_cliente') || Route::is('mostrar_paquete') ? 'show' : '' }}"
                         id="ui-basic">
                         <ul class="nav flex-column sub-menu">
+                            @role('Administrador|Recepcionista') {{-- Mostrar solo para roles específicos --}}
                             <li class="nav-item">
                                 <a class="nav-link {{ Route::is('mostrar_cliente') ? 'active' : '' }}" href="{{ route('mostrar_cliente') }}">
                                     Cliente
                                 </a>
                             </li>
+                            @endrole
+                            @hasanyrole('Recepcionista|Administrador')
                             <li class="nav-item">
                                 <a class="nav-link {{ Route::is('mostrar_inscripcion') || Route::is('historial_inscripciones') || Route::is('historial_recibos_cliente') || Route::is('historial_cliente') ? 'active' : '' }}" href="{{ route('mostrar_inscripcion') }}">
                                     Inscripción
                                 </a>
                             </li>
+                            @endhasanyrole
+                            @role('Administrador')
                             <li class="nav-item">
                                 <a class="nav-link {{ Route::is('mostrar_paquete') ? 'active' : '' }}" href="{{ route('mostrar_paquete') }}">
                                     Paquete
@@ -107,7 +112,12 @@
                                     Casillero
                                 </a>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('mostrar_empleado') ? 'active' : '' }}" href="{{ route('mostrar_empleado') }}">
+                                    Recepcionista
+                                </a>
+                            </li>
+                            @endrole
                         </ul>
                     </div>
                 </li>
@@ -389,12 +399,7 @@
     <!-- Plugin js for this page -->
     <script src="{{ asset('assets/vendors/chart.js/chart.umd.js') }}"></script>
     <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
-    <script src="{{ asset('assets/js/misc.js') }}"></script>
-    <script src="{{ asset('assets/js/settings.js') }}"></script>
-    <script src="{{ asset('assets/js/todolist.js') }}"></script>
-    <!-- endinject -->
+
     <!-- Custom js for this page -->
     <script src="{{ asset('assets/js/chart.js') }}"></script>
     <!-- End custom js for this page -->

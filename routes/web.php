@@ -9,6 +9,7 @@ use App\Http\Controllers\InscripcionController;
 use App\Http\Controllers\PaqueteController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ReciboController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -58,6 +59,13 @@ Route::get('/cliente/{id}/recibos', [ReciboController::class, 'verRecibos'])->na
 //recibo pdf
 Route::get('/recibo/pdf/{id}', [ReciboController::class, 'generarRecibo'])->name('recibo.pdf');
 
+//recibo enviar por whatsapp
+Route::get('/recibo/generate-temp-pdf/{id}', [ReciboController::class, 'generatePdf'])
+    ->name('recibo.generate-temp');
+
+Route::delete('/recibo/delete-temp-pdf/{filename}', [ReciboController::class, 'deleteTempPdf'])
+    ->name('recibo.delete-temp');
+
 
 
 //Paquete
@@ -78,3 +86,10 @@ Route::post('/asistencia-register', [AsistenciaController::class, 'store'])->nam
 Route::get('/asistencia/buscar', [AsistenciaController::class, 'buscar'])->name('asistencia.buscar');
 Route::get('/api/clientes-vigentes', [AsistenciaController::class, 'buscarVigentes']);
 Route::put('/asistencia/finalizar/{id}', [AsistenciaController::class, 'finalizarAsistencia'])->name('asistencia.finalizar'); // Finalizar asistencia
+
+//registrar resecionista
+
+Route::get('/create', [UserController::class, 'index'])->name('mostrar_empleado'); // Vista para crear usuario
+Route::post('/store', [UserController::class, 'store'])->name('users.store'); // Acción para almacenar usuario
+Route::get('/recepcionista/edit/{id}', [UserController::class, 'edit'])->name('recepcionista.edit');
+Route::put('/recepcionista-update/{id}', [UserController::class, 'update'])->name('recepcionista.update');

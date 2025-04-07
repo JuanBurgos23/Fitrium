@@ -1,11 +1,12 @@
 <x-layout bodyClass="g-sidenav-show bg-gray-200">
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <div class="container-fluid py-4">
             <div class="col-12">
                 <div class="card my-4">
 
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                        <h2>Historial de Inscripciones de {{ $cliente->nombre_completo }}</h2>
+                        <h2>Historial de Recibos de {{ $cliente->nombre_completo }}</h2>
                     </div>
                     <div class="me-3 my-3 text-end">
                         <!-- Contenedor principal con flexbox -->
@@ -34,6 +35,7 @@
                                         <th class="text-center">Debe</th>
                                         <th class="text-center">Total a Cancelar</th>
                                         <th class="text-center">Estado</th>
+                                        <th class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,6 +54,12 @@
                                     @endif">
                                                 {{ $recibo->estado }}
                                             </label>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('recibo.pdf', $recibo->id) }}" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-download"></i> Generar Recibo
+                                            </a>
+
                                         </td>
                                     </tr>
                                     @empty

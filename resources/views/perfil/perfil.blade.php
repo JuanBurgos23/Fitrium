@@ -37,6 +37,20 @@
         </nav>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
+            @if(session('success'))
+            <div class="alert alert-success" id="successMessage">
+                {{ session('success') }}
+            </div>
+            <script>
+                // Después de 3 segundos (3000 ms), eliminar el mensaje
+                setTimeout(function() {
+                    const successMessage = document.getElementById('successMessage');
+                    if (successMessage) {
+                        successMessage.style.display = 'none';
+                    }
+                }, 3000);
+            </script>
+            @endif
             <div class="col-12">
 
                 <div class="container mt-5">
@@ -64,8 +78,16 @@
                                         <input type="text" name="materno" class="form-control" value="{{ $user->materno ?? 'N/A'}}">
                                     </div>
                                     <div class="mb-3">
+                                        <label class="form-label">C.I</label>
+                                        <input type="text" name="ci" class="form-control" value="{{ $user->ci ?? 'N/A'}}">
+                                    </div>
+                                    <div class="mb-3">
                                         <label class="form-label">Correo Electrónico</label>
                                         <input type="email" name="email" class="form-control" value="{{ $user->email }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password">Nueva Contraseña</label>
+                                        <input type="password" name="password" class="form-control">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Celular</label>

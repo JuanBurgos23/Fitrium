@@ -51,4 +51,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function getNombreCompletoAttribute()
+    {
+        return "{$this->name} {$this->paterno} {$this->materno}";
+    }
 }
