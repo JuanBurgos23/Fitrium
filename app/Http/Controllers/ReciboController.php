@@ -18,14 +18,16 @@ class ReciboController extends Controller
         $totalAbonado = Recibo::where('id_inscripcion', $recibo->id_inscripcion)
             ->sum('a_cuenta');
 
+        $cliente = $recibo->inscripcion->cliente;
+        $fecha = $recibo->created_at->format('Ymd');
+
+        $nombreArchivo = 'recibo_' . Str::slug($cliente->nombre . '_' . $cliente->paterno) . "_{$fecha}.pdf";
+
+
         $pdf = PDF::loadView('recibo.reciboPdf', compact('recibo', 'totalAbonado'));
-
-
-        // Tamaño exacto en puntos (1mm = 2.83465pt)
-        // 80mm = 226.77pt, 150mm = 425.19pt
         $pdf->setPaper([0, 0, 226.77, 425.19], 'portrait');
 
-        return $pdf->download("recibo_{$recibo->id}.pdf");
+        return $pdf->download($nombreArchivo);
     }
     public function show($id)
     {

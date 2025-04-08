@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->date('fecha_ingreso');
             $table->time('hora_entrada');
-            $table->time('hora_salida');
+            $table->time('hora_salida')->nullable();
             $table->string('estado');
             $table->foreignId('id_inscripcion')->references('id')->on('inscripcion');
             $table->foreignId('id_casillero')->references('id')->on('casillero');
