@@ -55,7 +55,7 @@
                                                 {{ $recibo->estado }}
                                             </label>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="{{ route('recibo.pdf', $recibo->id) }}" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-download"></i> Generar Recibo
                                             </a>
@@ -80,6 +80,7 @@
                 </div>
             </div>
         </div>
+
 
 
     </main>

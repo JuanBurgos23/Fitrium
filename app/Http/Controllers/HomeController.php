@@ -54,6 +54,21 @@ class HomeController extends Controller
         // Calcular ingresos de hoy
         $ingresosHoy = Recibo::whereDate('fecha_pago', Carbon::today())->sum('a_cuenta');
 
-        return view('dashboard.dashboard', compact('totalClientes', 'clientesActivos', 'ingresosHoy', 'paquetesData'));
+        // Traemos todos los recibos válidos (puedes filtrar estado si es necesario)
+        $recibos = Recibo::selectRaw('MONTH(fecha_pago) as mes, SUM(total) as total')
+            ->whereYear('fecha_pago', Carbon::now()->year) // solo del año actual
+            ->groupByRaw('MONTH(fecha_pago)')
+            ->pluck('total', 'mes')
+            ->toArray();
+
+        // Asegurar que estén todos los 12 meses con 0 si no hay datos
+        $ingresosPorMes = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $ingresosPorMes[] = round($recibos[$i] ?? 0, 2); // Redondear a 2 decimales
+        }
+
+
+        return view('dashboard.dashboard', compact('totalClientes', 'clientesActivos', 'ingresosHoy', 'paquetesData','ingresosPorMes'));
     }
+   
 }

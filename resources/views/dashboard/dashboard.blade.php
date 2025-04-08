@@ -70,6 +70,23 @@
                 color: #fff !important;
                 /* Cambiar el color del texto de la descripción a blanco */
             }
+
+            .grafica-ingresos-figure,
+            .highcharts-data-table table {
+                min-width: 310px;
+                max-width: 800px;
+                margin: 1em auto;
+            }
+
+            #grafica-ingresos-container {
+                height: 400px;
+            }
+
+            .grafica-ingresos-descripcion {
+                margin: 0.3rem 10px;
+                font-size: 1rem;
+                color: #fff;
+            }
         </style>
 
         <!-- Contenido Principal -->
@@ -128,10 +145,12 @@
                             <div class="col-lg-6 grid-margin stretch-card">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Reporte grafico</h4>
+                                        <h4 class="card-title">Grafico Torta</h4>
                                         <figure class="highcharts-figure">
                                             <div id="container"></div>
-
+                                            <p class="grafica-ingresos-descripcion">
+                                                Este gráfico muestra el porcentaje de cada paquete mas inscrito.
+                                            </p>
                                         </figure>
                                     </div>
                                 </div>
@@ -139,8 +158,13 @@
                             <div class="col-lg-6 grid-margin stretch-card">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Bar chart</h4>
-                                        <canvas id="barChart" style="height:230px"></canvas>
+                                        <h4 class="card-title">Grafico Columna</h4>
+                                        <figure class="grafica-ingresos-figure">
+                                            <div id="grafica-ingresos-container"></div>
+                                            <p class="grafica-ingresos-descripcion">
+                                                Este gráfico muestra los ingresos por mes durante el año actual.
+                                            </p>
+                                        </figure>
                                     </div>
                                 </div>
                             </div>
@@ -152,6 +176,7 @@
             <script src="https://code.highcharts.com/modules/exporting.js"></script>
             <script src="https://code.highcharts.com/modules/export-data.js"></script>
             <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 
             <script>
                 (function(H) {
@@ -223,7 +248,7 @@
                 }(Highcharts));
 
                 // Datos de los paquetes más inscritos
-                var paquetesData = @json($paquetesData);
+                let paquetesData = @json($paquetesData);
 
                 Highcharts.chart('container', {
                     chart: {
@@ -233,7 +258,7 @@
                         text: 'Paquetes más Inscritos'
                     },
                     subtitle: {
-                        text: 'Custom animation of pie series'
+                        text: 'FITRIUM FITNESS - CLUB'
                     },
                     tooltip: {
                         headerFormat: '',
@@ -264,6 +289,45 @@
                         },
                         colorByPoint: true,
                         data: paquetesData
+                    }]
+                });
+
+                Highcharts.chart('grafica-ingresos-container', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Ingresos mensuales'
+                    },
+                    subtitle: {
+                        text: 'FITRIUM FITNESS - CLUB'
+                    },
+                    xAxis: {
+                        categories: [
+                            'Enero', 'Febrero', 'Marzo', 'Abril',
+                            'Mayo', 'Junio', 'Julio', 'Agosto',
+                            'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+                        ],
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Ingresos (Bs.)'
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: ' Bs.'
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: [{
+                        name: 'Ingresos',
+                        data: @json($ingresosPorMes)
                     }]
                 });
             </script>

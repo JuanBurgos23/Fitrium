@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Spatie\Browsershot\Browsershot;
 
 class ReciboController extends Controller
 {
@@ -19,7 +20,7 @@ class ReciboController extends Controller
 
         $pdf = PDF::loadView('recibo.reciboPdf', compact('recibo', 'totalAbonado'));
 
-        
+
         // Tamaño exacto en puntos (1mm = 2.83465pt)
         // 80mm = 226.77pt, 150mm = 425.19pt
         $pdf->setPaper([0, 0, 226.77, 425.19], 'portrait');
@@ -64,57 +65,5 @@ class ReciboController extends Controller
             ->paginate(10); // Paginación de 10 recibos
 
         return view('recibo.recibosCliente', compact('cliente', 'recibos', 'orden'));
-    }
-
-
-    public function generatePdf($id)
-    {
-        try {
-            $recibo = Recibo::with('inscripcion')->findOrFail($id);
-
-            // Calcular total abonado
-            $totalAbonado = Recibo::where('id_inscripcion', $recibo->id_inscripcion)
-                ->sum('a_cuenta');
-
-            // Asegurar directorio temporal
-            $tempPath = storage_path('app/public/temp');
-            if (!file_exists($tempPath)) {
-                Storage::makeDirectory('public/temp', 0755, true);
-            }
-
-            // Generar PDF
-            $pdf = PDF::loadView('recibo.reciboPdf', [
-                'recibo' => $recibo,
-                'totalAbonado' => $totalAbonado
-            ]);
-
-            $fileName = 'recibo_' . $recibo->id . '_' . Str::random(4) . '.pdf';
-            $fullPath = storage_path('app/public/temp/' . $fileName);
-
-            // Guardar PDF
-            $pdf->save($fullPath);
-
-            // Verificar PDF
-            if (!file_exists($fullPath)) {
-                throw new \Exception("Error al guardar el PDF");
-            }
-
-            return response()->json([
-                'pdf_path' => url('storage/temp/' . $fileName),
-                'delete_url' => route('recibo.delete-temp', $fileName),
-                'success' => true
-            ]);
-        } catch (\Exception $e) {
-            \Log::error("Error generatePdf: " . $e->getMessage());
-            return response()->json([
-                'error' => 'Error al generar PDF: ' . $e->getMessage(),
-                'success' => false
-            ], 500);
-        }
-    }
-    public function deleteTempPdf($filename)
-    {
-        Storage::delete('public/temp/' . $filename);
-        return response()->json(['success' => true]);
     }
 }
