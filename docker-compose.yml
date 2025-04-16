@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./storage:/var/www/html/storage
+      - ./vendor:/var/www/html/vendor
+    depends_on:
+      - db
+    networks:
+      - laravel_net
+    restart: always
+
+  db:
+    image: mysql:8.0
+    container_name: laravel_db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: fitrium
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: fitrium
+      MYSQL_PASSWORD: fitrium
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - laravel_net
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - laravel_net
+    restart: always
+
+volumes:
+  dbdata:
+
+networks:
+  laravel_net:

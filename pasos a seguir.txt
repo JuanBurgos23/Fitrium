@@ -1,0 +1,5 @@
+1er paso: configurar el entrypoint.sh
+
+2do: configurar el apache.conf
+
+3ro configurar el dockerfile        
