@@ -62,7 +62,7 @@
                 <div class="card my-4">
 
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                        <h2>Clientes Inscritos</h2>
+                        <h2>Clientes Inscritossss</h2>
                     </div>
 
                     <div class="me-3 my-3 text-end">
