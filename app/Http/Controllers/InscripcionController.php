@@ -65,12 +65,14 @@ class InscripcionController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string',
-            
+
             'paquete_id' => 'required|exists:paquete,id',
         ]);
 
         // Buscar si el cliente ya existe
-        $cliente = Cliente::where('ci', $request->ci)->first();
+        $cliente = $request->filled('ci')
+            ? Cliente::where('ci', $request->ci)->first()
+            : null;
 
         if (!$cliente) {
             // Si no existe, lo creamos
@@ -78,7 +80,7 @@ class InscripcionController extends Controller
                 'nombre' => $request->nombre,
                 'paterno' => $request->paterno,
                 'materno' => $request->materno,
-                'ci' => $request->ci,
+                'ci' => $request->ci ? $request->ci : 'SIN-CI-' . uniqid(),
                 'telefono' => $request->telefono,
                 'correo' => $request->correo,
             ]);
