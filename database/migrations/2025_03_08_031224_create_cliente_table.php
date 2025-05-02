@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('paterno');
             $table->string('materno');
-            $table->string('telefono');
-            $table->string('ci');
-            $table->string('correo');
+            $table->string('telefono')->nullable();
+            $table->string('ci')->nullable();
+            $table->string('correo')->nullable();
             $table->timestamps();
         });
     }

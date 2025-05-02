@@ -65,7 +65,7 @@ class InscripcionController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string',
-            'ci' => 'required|string',
+            
             'paquete_id' => 'required|exists:paquete,id',
         ]);
 

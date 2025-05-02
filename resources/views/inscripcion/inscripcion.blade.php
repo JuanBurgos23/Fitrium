@@ -260,18 +260,18 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="ci" class="form-label">Cédula de Identidad (C.I)</label>
-                                    <input type="text" class="form-control" id="ci" name="ci" required>
+                                    <input type="text" class="form-control" id="ci" name="ci" >
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="telefono" class="form-label">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" required>
+                                    <input type="text" class="form-control" id="telefono" name="telefono" >
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="correo" class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="correo" name="correo" required>
+                                    <input type="email" class="form-control" id="correo" name="correo" >
                                 </div>
                             </div>
 
