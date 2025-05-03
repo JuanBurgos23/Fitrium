@@ -79,7 +79,7 @@ class ClienteController extends Controller
             $cliente->delete();
             return redirect()->route('mostrar_cliente')->with('success', 'Cliente eliminado correctamente.');
         } catch (\Exception $e) {
-            return redirect()->route('mostrar_cliente')->with('error', 'No se pudo eliminar el cliente. Error: ' . $e->getMessage());
+            return redirect()->route('mostrar_cliente')->with('error', 'No se pudo eliminar el cliente. Error: Esta registrado en una inscripcion.');
         }
     }
 }

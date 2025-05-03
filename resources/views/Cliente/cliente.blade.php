@@ -68,10 +68,7 @@
                                 </button>
                             </form>
 
-                            <!-- Botón Agregar Cliente al mismo nivel que el formulario, con margen izquierdo -->
-                            <button class="btn btn-primary ms-3" style="margin-left: 20px;" data-bs-toggle="modal" data-bs-target="#addModal">
-                                <i class="fas fa-user-plus"></i> Agregar Cliente
-                            </button>
+                            
                         </div>
                     </div>
 
