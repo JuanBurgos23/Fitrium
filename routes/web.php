@@ -33,6 +33,7 @@ Route::middleware(['auth', 'checkRole:Administrador,Recepcionista'])->group(func
     Route::get('/cliente/edit/{id}', [ClienteController::class, 'edit']);
     Route::put('/cliente-update/{id}', [ClienteController::class, 'update']);
     Route::get('/clientes/search', [ClienteController::class, 'search'])->name('clientes.search');
+    Route::delete('/cliente/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
 
     //Inscripcion
     Route::get('/inscripcion', [InscripcionController::class, 'index'])->name('mostrar_inscripcion');

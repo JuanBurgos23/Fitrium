@@ -5,9 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
@@ -29,6 +30,20 @@
                     const successMessage = document.getElementById('successMessage');
                     if (successMessage) {
                         successMessage.style.display = 'none';
+                    }
+                }, 3000);
+            </script>
+            @endif
+            @if(session('error'))
+            <div class="alert alert-danger" id="errorMessage">
+                {{ session('error') }}
+            </div>
+            <script>
+                // Después de 3 segundos (3000 ms), eliminar el mensaje
+                setTimeout(function() {
+                    const errorMessage = document.getElementById('errorMessage');
+                    if (errorMessage) {
+                        errorMessage.style.display = 'none';
                     }
                 }, 3000);
             </script>
@@ -69,7 +84,7 @@
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">CI</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Correo</th>
-                                        @role('admin') <!-- Asegurarse de que solo los administradores puedan ver la columna de acciones -->
+                                        @role('Administrador') <!-- Asegurarse de que solo los administradores puedan ver la columna de acciones -->
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                                         @endrole
                                     </tr>
@@ -97,11 +112,44 @@
                                                 <h6 class="mb-0 text-sm">{{ $cliente->correo }}</h6>
                                             </div>
                                         </td>
-                                        @role('admin') <!-- Asegurarse de que solo los administradores puedan editar -->
+                                        @role('Administrador') <!-- Asegurarse de que solo los administradores puedan editar -->
                                         <td class="align-middle text-center">
                                             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ $cliente->id }}">
                                                 <i class="fas fa-edit"></i> Editar
                                             </button>
+                                            <!-- Botón Eliminar -->
+                                            <form action="{{ route('cliente.destroy', $cliente->id) }}" method="POST" style="display: inline-block;" class="delete-form">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-danger delete-button">
+                                                    <i class="fas fa-trash"></i> Eliminar
+                                                </button>
+                                            </form>
+
+                                            <script>
+                                                document.addEventListener('DOMContentLoaded', function () {
+                                                    const deleteButtons = document.querySelectorAll('.delete-button');
+                                                    deleteButtons.forEach(button => {
+                                                        button.addEventListener('click', function () {
+                                                            const form = this.closest('.delete-form');
+                                                            Swal.fire({
+                                                                title: '¿Estás seguro?',
+                                                                text: "¡No podrás revertir esto!",
+                                                                icon: 'warning',
+                                                                showCancelButton: true,
+                                                                confirmButtonColor: '#3085d6',
+                                                                cancelButtonColor: '#d33',
+                                                                confirmButtonText: 'Sí, eliminar',
+                                                                cancelButtonText: 'Cancelar'
+                                                            }).then((result) => {
+                                                                if (result.isConfirmed) {
+                                                                    form.submit();
+                                                                }
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            </script>
                                         </td>
                                         @endrole
                                     </tr>
@@ -147,15 +195,15 @@
                             </div>
                             <div class="mb-3">
                                 <label for="telefono" class="form-label">Telefono</label>
-                                <input type="text" class="form-control" id="telefono" name="telefono" required>
+                                <input type="text" class="form-control" id="telefono" name="telefono" >
                             </div>
                             <div class="mb-3">
                                 <label for="telefono" class="form-label">C.I</label>
-                                <input type="text" class="form-control" id="ci" name="ci" required>
+                                <input type="text" class="form-control" id="ci" name="ci" >
                             </div>
                             <div class="mb-3">
                                 <label for="telefono" class="form-label">Correo</label>
-                                <input type="text" class="form-control" id="correo" name="correo" required>
+                                <input type="text" class="form-control" id="correo" name="correo" >
                             </div>
 
 
@@ -196,15 +244,15 @@
                             </div>
                             <div class="mb-3">
                                 <label for="edit_telefono" class="form-label">Telefono</label>
-                                <input type="text" class="form-control" id="edit_telefono" name="telefono" required>
+                                <input type="text" class="form-control" id="edit_telefono" name="telefono" >
                             </div>
                             <div class="mb-3">
                                 <label for="edit_telefono" class="form-label">C.I</label>
-                                <input type="text" class="form-control" id="edit_ci" name="ci" required>
+                                <input type="text" class="form-control" id="edit_ci" name="ci" >
                             </div>
                             <div class="mb-3">
                                 <label for="edit_telefono" class="form-label">Correo</label>
-                                <input type="text" class="form-control" id="edit_correo" name="correo" required>
+                                <input type="text" class="form-control" id="edit_correo" name="correo" >
                             </div>
 
 
