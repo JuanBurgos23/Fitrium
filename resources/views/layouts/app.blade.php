@@ -14,10 +14,10 @@ $diasRestantes = $hoy->diffInDays($fechaFin, false);
 
 if ($diasRestantes <= 7 && $diasRestantes>= 0) {
     // Aviso de que la licencia está por expirar
-    $alertaLicencia = "Tu licencia expirará en {$diasRestantes} día(s). Renueva la licencia pronto.";
+    $alertaLicencia = "El sistema necesita mantenimiento en {$diasRestantes} día(s). Realice el mantenimiento pronto.";
     } elseif ($diasRestantes < 0) {
         // Aviso de que la licencia ha expirado
-        $alertaLicencia="La licencia ha expirado. Por favor, adquiere la licencia."; ;
+        $alertaLicencia="Sistema sin mantenimiento. Por favor, realice el debido mantenimiento."; ;
         }
         }
         }
