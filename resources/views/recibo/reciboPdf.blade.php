@@ -225,7 +225,7 @@
             </div>
             <div class="amount">
                 <span>Bs.</span>
-                <div class="value">{{ number_format($recibo->total, 2) }}</div>
+                <div class="value">{{ number_format($recibo->a_cuenta+$recibo->saldo, 2) }}</div>
             </div>
         </div>
 
@@ -242,7 +242,7 @@
             </div>
             <div class="detail-row">
                 <div class="detail-label">A cuenta:</div>
-                <div class="detail-value">Bs. {{ number_format($totalAbonado, 2) }}</div>
+                <div class="detail-value">Bs. {{ number_format($recibo->a_cuenta, 2) }}</div>
             </div>
             <div class="detail-row">
                 <div class="detail-label">Saldo:</div>

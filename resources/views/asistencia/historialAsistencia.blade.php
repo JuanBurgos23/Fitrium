@@ -48,7 +48,9 @@
                                 </button>
                             </form>
 
-
+                            <a href="{{ route('mostrar_asistencia') }}" class="btn btn-secondary mb-3">
+                                <i class="fas fa-arrow-left"></i> Volver
+                            </a>
 
 
                         </div>

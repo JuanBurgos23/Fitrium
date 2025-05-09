@@ -88,7 +88,7 @@
                 color: #fff;
             }
         </style>
-
+@extends('layouts.app')
         <!-- Contenido Principal -->
         <div class="main-panel">
             <div class="content-wrapper">
