@@ -14,10 +14,10 @@ $diasRestantes = $hoy->diffInDays($fechaFin, false);
 
 if ($diasRestantes <= 7 && $diasRestantes>= 0) {
     // Aviso de que la licencia está por expirar
-    $alertaLicencia = "Tu licencia expirará en {$diasRestantes} día(s). Adquiere la versión completa pronto.";
+    $alertaLicencia = "Tu licencia expirará en {$diasRestantes} día(s). Renueva la licencia pronto.";
     } elseif ($diasRestantes < 0) {
         // Aviso de que la licencia ha expirado
-        $alertaLicencia="La licencia ha expirado. la base de datos sera borrada y la compu explotara en 2 dias." ;
+        $alertaLicencia="La licencia ha expirado. Por favor, adquiere la licencia."; ;
         }
         }
         }
