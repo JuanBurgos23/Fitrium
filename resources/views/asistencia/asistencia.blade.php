@@ -12,7 +12,7 @@
 
 
 </head>
-
+@extends('layouts.app')
 <x-layout bodyClass="g-sidenav-show bg-gray-200">
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
 
@@ -43,6 +43,8 @@
                             <button class="btn btn-primary ms-3" style="margin-left: 20px;" data-toggle="modal" data-target="#modalAgregarAsistencia">
                                 <i class="fas fa-user-plus"></i> Agregar Asistencia
                             </button>
+                            <a class="btn btn-primary ms-3" href="{{ route ('asistencia.historial') }}"> <i class="fas fa-search-plus"></i> Historial</a>
+                
 
                         </div>
                     </div>

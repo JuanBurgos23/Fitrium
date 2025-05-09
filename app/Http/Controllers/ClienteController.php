@@ -54,8 +54,6 @@ class ClienteController extends Controller
         $cliente->telefono = $request->telefono;
         $cliente->correo = $request->correo;
 
-
-
         $cliente->update();
         return redirect()->route('mostrar_cliente')->with('success', 'Cliente actualizado correctamente');
     }

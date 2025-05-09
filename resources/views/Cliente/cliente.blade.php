@@ -12,7 +12,7 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
-
+@extends('layouts.app')
 <x-layout bodyClass="g-sidenav-show bg-gray-200">
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl">
@@ -68,7 +68,7 @@
                                 </button>
                             </form>
 
-                            
+
                         </div>
                     </div>
 
@@ -124,10 +124,10 @@
                                             </form>
 
                                             <script>
-                                                document.addEventListener('DOMContentLoaded', function () {
+                                                document.addEventListener('DOMContentLoaded', function() {
                                                     const deleteButtons = document.querySelectorAll('.delete-button');
                                                     deleteButtons.forEach(button => {
-                                                        button.addEventListener('click', function () {
+                                                        button.addEventListener('click', function() {
                                                             const form = this.closest('.delete-form');
                                                             Swal.fire({
                                                                 title: '¿Estás seguro?',
@@ -192,15 +192,15 @@
                             </div>
                             <div class="mb-3">
                                 <label for="telefono" class="form-label">Telefono</label>
-                                <input type="text" class="form-control" id="telefono" name="telefono" >
+                                <input type="text" class="form-control" id="telefono" name="telefono">
                             </div>
                             <div class="mb-3">
                                 <label for="telefono" class="form-label">C.I</label>
-                                <input type="text" class="form-control" id="ci" name="ci" >
+                                <input type="text" class="form-control" id="ci" name="ci">
                             </div>
                             <div class="mb-3">
                                 <label for="telefono" class="form-label">Correo</label>
-                                <input type="text" class="form-control" id="correo" name="correo" >
+                                <input type="text" class="form-control" id="correo" name="correo">
                             </div>
 
 
@@ -241,15 +241,15 @@
                             </div>
                             <div class="mb-3">
                                 <label for="edit_telefono" class="form-label">Telefono</label>
-                                <input type="text" class="form-control" id="edit_telefono" name="telefono" >
+                                <input type="text" class="form-control" id="edit_telefono" name="telefono">
                             </div>
                             <div class="mb-3">
                                 <label for="edit_telefono" class="form-label">C.I</label>
-                                <input type="text" class="form-control" id="edit_ci" name="ci" >
+                                <input type="text" class="form-control" id="edit_ci" name="ci">
                             </div>
                             <div class="mb-3">
                                 <label for="edit_telefono" class="form-label">Correo</label>
-                                <input type="text" class="form-control" id="edit_correo" name="correo" >
+                                <input type="text" class="form-control" id="edit_correo" name="correo">
                             </div>
 
 
@@ -265,6 +265,7 @@
 
         <!-- Scripts -->
         <script>
+            // Llama a la función para mostrar la alerta de licencia expirada si corresponde
             // Llenar el formulario de editar con los datos del cliente
             const editModal = document.getElementById('editModal');
             editModal.addEventListener('show.bs.modal', function(event) {

@@ -66,7 +66,7 @@ Route::middleware(['auth', 'checkRole:Administrador,Recepcionista'])->group(func
     Route::get('/asistencia/buscar', [AsistenciaController::class, 'buscar'])->name('asistencia.buscar');
     Route::get('/api/clientes-vigentes', [AsistenciaController::class, 'buscarVigentes']);
     Route::put('/asistencia/finalizar/{id}', [AsistenciaController::class, 'finalizarAsistencia'])->name('asistencia.finalizar'); // Finalizar asistencia
-
+    Route::get('/asistencia/historial', [AsistenciaController::class, 'historial'])->name('asistencia.historial');
 });
 
 
