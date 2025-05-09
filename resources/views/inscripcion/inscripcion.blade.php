@@ -12,7 +12,7 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
-
+@extends('layouts.app')
 <x-layout bodyClass="g-sidenav-show bg-gray-200">
     <style>
         input[readonly] {
@@ -62,7 +62,7 @@
                 <div class="card my-4">
 
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                        <h2>Clientes Inscritossss</h2>
+                        <h2>Clientes Inscritos</h2>
                     </div>
 
                     <div class="me-3 my-3 text-end">
@@ -136,12 +136,12 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="d-flex gap-1 justify-content-center">
-                                                @if ($inscripcion->estado == 'Caducado' || $inscripcion->estado == 'Abandonado')
+
                                                 <!-- Mostrar botón de Renovar solo si la inscripción está caducada o abandonada -->
                                                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalRenovar" onclick="abrirModalRenovar({{ $inscripcion->id }})">
                                                     Renovar
                                                 </button>
-                                                @endif
+
                                                 <a href="{{ route('historial_cliente', ['id' => $cliente->id]) }}" class="btn btn-info btn-sm">
                                                     <i class="fas fa-file-pdf"></i> Historial
                                                 </a>
@@ -260,18 +260,18 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="ci" class="form-label">Cédula de Identidad (C.I)</label>
-                                    <input type="text" class="form-control" id="ci" name="ci" >
+                                    <input type="text" class="form-control" id="ci" name="ci">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="telefono" class="form-label">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" >
+                                    <input type="text" class="form-control" id="telefono" name="telefono">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="correo" class="form-label">Correo Electrónico</label>
-                                    <input type="email" class="form-control" id="correo" name="correo" >
+                                    <input type="email" class="form-control" id="correo" name="correo">
                                 </div>
                             </div>
 

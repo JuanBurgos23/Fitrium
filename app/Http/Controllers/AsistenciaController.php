@@ -110,4 +110,21 @@ class AsistenciaController extends Controller
 
         return response()->json($clientes);
     }
+
+    public function historial(Request $request)
+    {
+        $search = $request->input('search'); // Obtener el parámetro de búsqueda
+
+        $asistencias = Asistencia::with(['inscripcion.cliente', 'casillero'])
+            ->whereHas('inscripcion.cliente', function ($query) use ($search) {
+                if ($search) {
+                    $query->where('ci', 'LIKE', "%{$search}%")
+                        ->orWhere('paterno', 'LIKE', "%{$search}%");
+                }
+            })
+            ->latest()
+            ->get();
+
+        return view('asistencia.historialAsistencia', compact('asistencias', 'search'));
+    }
 }

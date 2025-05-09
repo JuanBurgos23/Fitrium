@@ -33,6 +33,7 @@ Route::middleware(['auth', 'checkRole:Administrador,Recepcionista'])->group(func
     Route::get('/cliente/edit/{id}', [ClienteController::class, 'edit']);
     Route::put('/cliente-update/{id}', [ClienteController::class, 'update']);
     Route::get('/clientes/search', [ClienteController::class, 'search'])->name('clientes.search');
+    Route::delete('/cliente/{id}', [ClienteController::class, 'destroy'])->name('cliente.destroy');
 
     //Inscripcion
     Route::get('/inscripcion', [InscripcionController::class, 'index'])->name('mostrar_inscripcion');
@@ -65,7 +66,7 @@ Route::middleware(['auth', 'checkRole:Administrador,Recepcionista'])->group(func
     Route::get('/asistencia/buscar', [AsistenciaController::class, 'buscar'])->name('asistencia.buscar');
     Route::get('/api/clientes-vigentes', [AsistenciaController::class, 'buscarVigentes']);
     Route::put('/asistencia/finalizar/{id}', [AsistenciaController::class, 'finalizarAsistencia'])->name('asistencia.finalizar'); // Finalizar asistencia
-
+    Route::get('/asistencia/historial', [AsistenciaController::class, 'historial'])->name('asistencia.historial');
 });
 
 

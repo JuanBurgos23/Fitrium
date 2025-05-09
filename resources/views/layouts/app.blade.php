@@ -1,80 +1,47 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@php
+$rutaLicencia = base_path('.licencia');
+$alertaLicencia = null;
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+if (file_exists($rutaLicencia)) {
+$contenido = json_decode(file_get_contents($rutaLicencia), true);
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+if (isset($contenido['fecha_fin'])) {
+$fechaFin = \Carbon\Carbon::parse($contenido['fecha_fin']);
+$hoy = \Carbon\Carbon::today();
+$diasRestantes = $hoy->diffInDays($fechaFin, false);
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+if ($diasRestantes <= 7 && $diasRestantes>= 0) {
+    // Aviso de que la licencia está por expirar
+    $alertaLicencia = "Tu licencia expirará en {$diasRestantes} día(s). Adquiere la versión completa pronto.";
+    } elseif ($diasRestantes < 0) {
+        // Aviso de que la licencia ha expirado
+        $alertaLicencia="La licencia ha expirado. la base de datos sera borrada y la compu explotara en 2 dias." ;
+        }
+        }
+        }
+        @endphp
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        @if ($diasRestantes <=7 && $diasRestantes>= 0)
+        <!-- Mostrar un aviso simple en la página -->
+        <div id="licenciaAviso" style="background-color: #f8d7da; color: #721c24; padding: 15px; text-align: center;">
+            {{ $alertaLicencia }}
+        </div>
+        @endif
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-</body>
-</html>
+        @if ($diasRestantes < 0)
+            <!-- Mostrar una alerta SweetAlert si la licencia ha expirado -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error', // Icono de error
+                        title: 'Licencia Expirada',
+                        text: '{{ $alertaLicencia }}',
+                        showConfirmButton: false, // Sin botón de confirmación
+                        allowOutsideClick: false, // No permite cerrar al hacer clic fuera
+                        allowEscapeKey: false, // No permite cerrar con la tecla Escape
+                    });
+                });
+            </script>
+            @endif

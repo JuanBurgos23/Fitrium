@@ -54,8 +54,6 @@ class ClienteController extends Controller
         $cliente->telefono = $request->telefono;
         $cliente->correo = $request->correo;
 
-
-
         $cliente->update();
         return redirect()->route('mostrar_cliente')->with('success', 'Cliente actualizado correctamente');
     }
@@ -71,5 +69,15 @@ class ClienteController extends Controller
         return response()->json($clientes);
     }
 
-    
+    public function destroy($id)
+    {
+        $cliente = Cliente::findOrFail($id);
+
+        try {
+            $cliente->delete();
+            return redirect()->route('mostrar_cliente')->with('success', 'Cliente eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('mostrar_cliente')->with('error', 'No se pudo eliminar el cliente. Error: Esta registrado en una inscripcion.');
+        }
+    }
 }
